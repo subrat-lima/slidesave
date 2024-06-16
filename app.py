@@ -1,8 +1,10 @@
 from selectolax.parser import HTMLParser
 
-import httpx
 import os
 import sys
+
+import httpx
+import img2pdf
 
 
 BASE_DIR = "data"
@@ -52,7 +54,7 @@ def get_html(url, name):
     return html
 
 
-def parse_slides(html, name):
+def parse_slides(html, name, pdf):
     tree = HTMLParser(html)
     folder = os.path.join(IMG_PATH, name)
     if not os.path.exists(folder):
@@ -65,22 +67,32 @@ def parse_slides(html, name):
     base_img_url = srcset.split(",")[-1].strip().split(" ")[0]
     print(base_img_url)
 
+    imgs = []
+
     for i in range(1, page_count + 1):
         img_name = os.path.join(folder, f"slide-{i:03d}.jpg")
         img_url = base_img_url.replace("-1-", f"-{i}-")
         save_img(img_url, img_name)
+        imgs.append(img_name)
 
+    if pdf:
+        pdf_name = os.path.join(folder, f'{name}.pdf')
+        with open(pdf_name, "wb") as f:
+            f.write(img2pdf.convert(imgs))
 
-def save_slides(url):
+def save_slides(url, pdf):
     name = url.split("/slideshow/")[1].replace("/", "-")
     html = get_html(url, name)
-    parse_slides(html, name)
+    parse_slides(html, name, pdf)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print("the app requires 'url' as the parameter")
     else:
         init()
         url = sys.argv[1].split("?")[0].strip()
-        save_slides(url)
+        pdf = False
+        if len(sys.argv) == 3:
+            pdf = True
+        save_slides(url, pdf)
