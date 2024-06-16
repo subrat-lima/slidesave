@@ -69,13 +69,13 @@ def parse_slides(html, name, pdf):
     srcset = first_slide.attributes.get("srcset")
 
     base_img_url = srcset.split(",")[-1].strip().split(" ")[0]
-    print(base_img_url)
+    img_width = srcset.strip().split(' ')[-1].replace('w', '')
 
     imgs = []
 
     for i in range(1, page_count + 1):
         img_name = os.path.join(folder, f"slide-{i:03d}.jpg")
-        img_url = base_img_url.replace("-1-", f"-{i}-")
+        img_url = base_img_url.replace(f"-1-{img_width}.jpg", f"-{i}-{img_width}.jpg")
         save_img(img_url, img_name)
         imgs.append(img_name)
 
