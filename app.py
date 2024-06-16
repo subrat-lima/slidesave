@@ -10,9 +10,11 @@ import img2pdf
 BASE_DIR = "data"
 IMG_DIR = "img"
 HTML_DIR = "html"
+PDF_DIR = "pdf"
 
 IMG_PATH = os.path.join(BASE_DIR, IMG_DIR)
 HTML_PATH = os.path.join(BASE_DIR, HTML_DIR)
+PDF_PATH = os.path.join(BASE_DIR, PDF_DIR)
 
 
 def init():
@@ -20,6 +22,8 @@ def init():
         os.makedirs(IMG_PATH)
     if not os.path.exists(HTML_PATH):
         os.makedirs(HTML_PATH)
+    if not os.path.exists(PDF_PATH):
+        os.makedirs(PDF_PATH)
 
 
 def get(url):
@@ -76,9 +80,10 @@ def parse_slides(html, name, pdf):
         imgs.append(img_name)
 
     if pdf:
-        pdf_name = os.path.join(folder, f'{name}.pdf')
+        pdf_name = os.path.join(PDF_PATH, f"{name}.pdf")
         with open(pdf_name, "wb") as f:
             f.write(img2pdf.convert(imgs))
+
 
 def save_slides(url, pdf):
     name = url.split("/slideshow/")[1].replace("/", "-")
@@ -92,7 +97,7 @@ if __name__ == "__main__":
     else:
         init()
         url = sys.argv[1].split("?")[0].strip()
-        pdf = False
+        pdf = True
         if len(sys.argv) == 3:
-            pdf = True
+            pdf = False
         save_slides(url, pdf)
