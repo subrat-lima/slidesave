@@ -82,5 +82,5 @@ if __name__ == "__main__":
         print("the app requires 'url' as the parameter")
     else:
         init()
-        url = sys.argv[1]
+        url = sys.argv[1].split("?")[0].strip()
         save_slides(url)
