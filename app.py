@@ -69,7 +69,7 @@ def parse_slides(html, name, pdf):
     srcset = first_slide.attributes.get("srcset")
 
     base_img_url = srcset.split(",")[-1].strip().split(" ")[0]
-    img_width = srcset.strip().split(' ')[-1].replace('w', '')
+    img_width = srcset.strip().split(" ")[-1].replace("w", "")
 
     imgs = []
 
@@ -81,14 +81,21 @@ def parse_slides(html, name, pdf):
 
     if pdf:
         pdf_name = os.path.join(PDF_PATH, f"{name}.pdf")
+        if os.path.isfile(pdf_name):
+            print(f"{pdf_name} already exists")
+            return
         with open(pdf_name, "wb") as f:
             f.write(img2pdf.convert(imgs))
 
 
-def save_slides(url, pdf):
-    name = url.split("/slideshow/")[1].replace("/", "-")
-    html = get_html(url, name)
-    parse_slides(html, name, pdf)
+def save_slides(url, pdf=True):
+    try:
+        name = url.split("/slideshow/")[1].replace("/", "-")
+        html = get_html(url, name)
+        parse_slides(html, name, pdf)
+    except:
+        return False
+    return True
 
 
 if __name__ == "__main__":
