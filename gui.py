@@ -6,11 +6,16 @@ import app
 
 def download_slides():
     url = url_input.get()
+    if len(url.strip()) == 0:
+        messagebox.showinfo("error", "enter an url")
+        return False
     response = app.save_slides(url)
     if response == True:
         messagebox.showinfo("success", "pdf file has been downloaded")
     else:
         messagebox.showinfo("error", "pdf file has not been downloaded")
+    url_input.delete(0, END)
+    return True
 
 
 root = Tk()

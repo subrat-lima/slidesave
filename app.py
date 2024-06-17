@@ -86,6 +86,7 @@ def parse_slides(html, name, pdf):
             return
         with open(pdf_name, "wb") as f:
             f.write(img2pdf.convert(imgs))
+        print(f"{pdf_name} generated")
 
 
 def save_slides(url, pdf=True):
