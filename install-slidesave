@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pip install -i https://test.pypi.org/simple/ slidesave
+pip install -i https://test.pypi.org/simple/ --no-deps slidesave
 
 EXE_PATH=`which slidesave_cli`
 echo $EXE_PATH
