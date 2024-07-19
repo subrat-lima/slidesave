@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slidesave"
+version = "0.0.2"
+authors = [
+    { name="Subrat Lima", email="subrat.k.lima@protonmail.com" },
+]
+description = "an simple application to download slides rom slideshare"
+readme = "README.md"
+dependencies = ["httpx", "selectolax"]
+requires-python = ">= 3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Homepage = "https://github.com/subrat-lima/slidesave"
+Issues = "https://github.com/subrat-lima/slidesave/issues"
+
+[project.scripts]
+slidesave_cli = "slidesave.app:handle_cli"
+
+[project.gui-scripts]
+slidesave_gui = "slidesave.gui:start_gui"
+
+[tool.setup.packages.find]
+where = ["src"]

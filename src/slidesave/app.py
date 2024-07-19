@@ -7,7 +7,8 @@ import httpx
 import img2pdf
 
 
-BASE_DIR = "data"
+HOME = os.path.expanduser("~")
+BASE_DIR = os.path.join(HOME, "slidesave")
 IMG_DIR = "img"
 HTML_DIR = "html"
 PDF_DIR = "pdf"
@@ -90,6 +91,7 @@ def parse_slides(html, name, pdf):
 
 
 def save_slides(url, pdf=True):
+    init()
     try:
         name = url.split("/slideshow/")[1].replace("/", "-")
         html = get_html(url, name)
@@ -98,14 +100,15 @@ def save_slides(url, pdf=True):
         return False
     return True
 
-
-if __name__ == "__main__":
+def handle_cli():
     if len(sys.argv) < 2:
         print("the app requires 'url' as the parameter")
     else:
-        init()
         url = sys.argv[1].split("?")[0].strip()
         pdf = True
         if len(sys.argv) == 3:
             pdf = False
         save_slides(url, pdf)
+
+if __name__ == "__main__":
+    handle_cli()
