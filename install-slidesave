@@ -38,7 +38,7 @@ append()
 echo -n > $APP_PATH
 append "[Desktop Entry]"
 append "Encoding=UTF-8"
-append "Version=0.0.3"
+append "Version=0.0.4"
 append "Type=Application"
 append "Terminal=False"
 append "Exec=$EXE_PATH"

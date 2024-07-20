@@ -1,5 +1,6 @@
 from selectolax.parser import HTMLParser
 
+import re
 import os
 import sys
 
@@ -93,7 +94,10 @@ def parse_slides(html, name, pdf):
 def save_slides(url, pdf=True):
     init()
     try:
-        name = url.split("/slideshow/")[1].replace("/", "-")
+        match = re.match(r"https://www.slideshare.net/[a-zA-Z0-9-._]+/(?P<name>.*)", url)
+        if match is None:
+            return -1
+        name = match.group("name").replace("/", "-")
         html = get_html(url, name)
         parse_slides(html, name, pdf)
     except:
@@ -109,7 +113,9 @@ def handle_cli():
         pdf = True
         if len(sys.argv) == 3:
             pdf = False
-        save_slides(url, pdf)
+        status_code = save_slides(url, pdf)
+        if status_code == -1:
+            print("url not supported")
 
 
 if __name__ == "__main__":
