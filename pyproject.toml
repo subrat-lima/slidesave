@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "slidesave"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
     { name="Subrat Lima", email="subrat.k.lima@protonmail.com" },
 ]
 description = "an simple application to download slides rom slideshare"
 readme = "README.md"
-dependencies = ["httpx", "selectolax"]
+dependencies = ["httpx", "selectolax", "img2pdf"]
 requires-python = ">= 3.11"
 classifiers = [
     "Programming Language :: Python :: 3",

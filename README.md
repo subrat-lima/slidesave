@@ -20,6 +20,7 @@ slideshare_gui
 ```
 ## note
 - this project is in experimental phase
+- pipx install is not supported as the project is not yet deployed to pypi
 - all the pdfs are stored in $HOME/slidesave folder 
 
 ## attribution

@@ -1,34 +1,57 @@
 #!/bin/sh
 
-pip install -i https://test.pypi.org/simple/ --no-deps slidesave
+# urls
+IMG_URL="https://github.com/subrat-lima/slidesave/blob/main/icon.png"
+TEST_PYPI_URL="https://test.pypi.org/simple/"
+PROD_PYPI_URL="https://pypi.org/simple/"
 
-EXE_PATH=`which slidesave_cli`
-echo $EXE_PATH
-
-
+# directories
 APP_DIR="$HOME/.local/share/applications"
-APP_PATH="$APP_DIR""/slidesave.desktop"
-IMG_DIR="$HOME""/slidesave"
-IMG_PATH="$IMG_DIR""/icon.png"
+APP_PATH="$APP_DIR/slidesave.desktop"
+DATA_DIR="$HOME/slidesave"
+IMG_PATH="$DATA_DIR/icon.png"
+EXE_PATH=`which slidesave_cli`
 
+# need to have pip installed and configured for this installation to work
+pip install -i $TEST_PYPI_URL --extra-index-url $PROD_PYPI_URL slidesave
+
+# create $APP_DIR if not exists
 if [ ! -d $APP_DIR ]; then
     mkdir -p $APP_DIR
 fi
-if [ ! -d $IMG_DIR ]; then
-    mkdir -p $IMG_DIR
+
+# create $DATA_DIR if not exists
+if [ ! -d $DATA_DIR ]; then
+    mkdir -p $DATA_DIR
 fi
 
+# download icon if not exists
 if [ ! -f $IMG_PATH ]; then
-    curl -o $IMG_PATH "https://github.com/subrat-lima/slidesave/blob/main/icon.png"
+    curl -o $IMG_PATH $IMG_URL
 fi
 
-echo "[Desktop Entry]" > $APP_PATH
-echo "Encoding=UTF-8" >> $APP_PATH
-echo "Version=0.0.2" >> $APP_PATH
-echo "Type=Application" >> $APP_PATH
-echo "Terminal=False" >> $APP_PATH
-echo "Exec=$APP_PATH" >> $APP_PATH
-echo "Name=slideshare" >> $APP_PATH
-echo "Icon=$IMG_PATH" >> $APP_PATH
+append()
+{
+    echo $1 >> $APP_PATH
+}
 
-echo "desktop entry added for slidesave"
+echo -n > $APP_PATH
+append "[Desktop Entry]"
+append "Encoding=UTF-8"
+append "Version=0.0.3"
+append "Type=Application"
+append "Terminal=False"
+append "Exec=$EXE_PATH"
+append "Name=slidesave"
+append "Icon=$IMG_PATH"
+
+# echo "[Desktop Entry]" > $APP_PATH
+# echo "Encoding=UTF-8" >> $APP_PATH
+# echo "Version=0.0.2" >> $APP_PATH
+# echo "Type=Application" >> $APP_PATH
+# echo "Terminal=False" >> $APP_PATH
+# echo "Exec=$APP_PATH" >> $APP_PATH
+# echo "Name=slideshare" >> $APP_PATH
+# echo "Icon=$IMG_PATH" >> $APP_PATH
+
+echo "desktop entry added for slidesave at " $APP_PATH

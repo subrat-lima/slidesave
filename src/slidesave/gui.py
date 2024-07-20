@@ -5,6 +5,7 @@ from slidesave import app
 from tkinter import *
 from tkinter import ttk
 
+
 class GUI:
     def __init__(self):
         self.initialize()
@@ -23,7 +24,6 @@ class GUI:
         self.url.delete(0, END)
         return True
 
-
     def validate_url(self, value):
         pattern = r"https:\/\/www.slideshare.net\/slideshow\/.*"
         if re.match(pattern, value) is None:
@@ -34,10 +34,9 @@ class GUI:
     def on_invalid(self):
         self.show_message("invalid url", "red")
 
-    def show_message(self, error = "", color="black"):
+    def show_message(self, error="", color="black"):
         self.errorlbl["text"] = error
         self.url["foreground"] = color
-
 
     def initialize(self):
         self.root = Tk()
@@ -45,13 +44,15 @@ class GUI:
         self.content = ttk.Frame(self.root)
         self.urllbl = ttk.Label(self.content, text="enter slideshare url")
         self.url = ttk.Entry(self.content)
-        self.download = ttk.Button(self.content, text="download", command=self.download_slides)
+        self.download = ttk.Button(
+            self.content, text="download", command=self.download_slides
+        )
         self.errorlbl = ttk.Label(self.content)
         self.commentlbl = ttk.Label(self.content)
 
         self.vcmd = (self.root.register(self.validate_url), "%P")
         self.ivcmd = (self.root.register(self.on_invalid),)
-    
+
         self.content.grid(column=0, row=0, padx=4, pady=4)
         self.urllbl.grid(column=0, row=0, padx=4, pady=4)
         self.url.grid(column=0, row=1, padx=4, pady=4, sticky=(E, W))
@@ -59,7 +60,9 @@ class GUI:
         self.errorlbl.grid(column=0, row=3, padx=4, pady=4)
         self.commentlbl.grid(column=0, row=4, padx=4, pady=4)
 
-        self.url.config(validate="focusout", validatecommand=self.vcmd, invalidcommand=self.ivcmd)
+        self.url.config(
+            validate="focusout", validatecommand=self.vcmd, invalidcommand=self.ivcmd
+        )
 
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1, minsize=200)
@@ -71,6 +74,7 @@ class GUI:
         self.content.rowconfigure(4, weight=1)
 
         self.root.mainloop()
+
 
 def start_gui():
     gui = GUI()

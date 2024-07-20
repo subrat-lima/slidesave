@@ -100,6 +100,7 @@ def save_slides(url, pdf=True):
         return False
     return True
 
+
 def handle_cli():
     if len(sys.argv) < 2:
         print("the app requires 'url' as the parameter")
@@ -109,6 +110,7 @@ def handle_cli():
         if len(sys.argv) == 3:
             pdf = False
         save_slides(url, pdf)
+
 
 if __name__ == "__main__":
     handle_cli()
