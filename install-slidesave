@@ -13,7 +13,7 @@ IMG_PATH="$DATA_DIR/icon.png"
 EXE_PATH=`which slidesave_cli`
 
 # uninstall slidesave
-pip uninstall slidesave
+pip uninstall slidesave -y
 
 # need to have pip installed and configured for this installation to work
 pip install -i $TEST_PYPI_URL --extra-index-url $PROD_PYPI_URL slidesave
