@@ -94,6 +94,7 @@ def parse_slides(html, name, pdf):
 def save_slides(url, pdf=True):
     init()
     try:
+        url = url.split("?")[0].strip()
         match = re.match(r"https://www.slideshare.net/[a-zA-Z0-9-._]+/(?P<name>.*)", url)
         if match is None:
             return -1

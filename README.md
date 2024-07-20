@@ -3,7 +3,7 @@ a simple tool to download slides from slideshare
 
 ## installation
 ```sh
-curl -O "https://github.com/subrat-lima/slidesave/blob/main/install-slidesave" 
+curl -O "https://raw.githubusercontent.com/subrat-lima/slidesave/main/install-slidesave" 
 chmod +x install-slidesave
 ./install-slidesave
 ```

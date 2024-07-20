@@ -25,7 +25,7 @@ class GUI:
         return True
 
     def validate_url(self, value):
-        pattern = r"https:\/\/www.slideshare.net\/slideshow\/.*"
+        pattern = r"https:\/\/www.slideshare.net\/.*"
         if re.match(pattern, value) is None:
             return False
         self.show_message()
