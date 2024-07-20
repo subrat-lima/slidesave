@@ -10,7 +10,7 @@ APP_DIR="$HOME/.local/share/applications"
 APP_PATH="$APP_DIR/slidesave.desktop"
 DATA_DIR="$HOME/slidesave"
 IMG_PATH="$DATA_DIR/icon.png"
-EXE_PATH=`which slidesave_cli`
+EXE_PATH=`which slidesave_gui`
 
 # uninstall slidesave
 pip uninstall slidesave -y
